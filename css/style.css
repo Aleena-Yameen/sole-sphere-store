@@ -1,0 +1,305 @@
+/* ============================
+   GOOGLE RESET
+============================ */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:'Poppins',sans-serif;
+    background:#F8FAFC;
+    color:#111827;
+    overflow-x:hidden;
+}
+
+img{
+    max-width:100%;
+    display:block;
+}
+
+a{
+    text-decoration:none;
+    color:inherit;
+}
+
+ul{
+    list-style:none;
+}
+
+button{
+    font-family:inherit;
+    cursor:pointer;
+    border:none;
+}
+
+/* ============================
+        VARIABLES
+============================ */
+
+:root{
+
+    --primary:#2563EB;
+    --secondary:#FF6B35;
+
+    --dark:#111827;
+
+    --gray:#6B7280;
+
+    --light:#F8FAFC;
+
+    --white:#FFFFFF;
+
+    --radius:18px;
+
+    --shadow:
+
+    0 10px 30px rgba(0,0,0,.08);
+
+}
+
+/* ============================
+      CONTAINER
+============================ */
+
+.container{
+
+    width:90%;
+
+    max-width:1300px;
+
+    margin:auto;
+
+}
+
+/* ============================
+       HEADER
+============================ */
+
+header{
+
+    position:sticky;
+
+    top:0;
+
+    z-index:1000;
+
+    background:white;
+
+    box-shadow:var(--shadow);
+
+}
+
+/* ============================
+      NAVBAR
+============================ */
+
+.navbar{
+
+    width:90%;
+
+    max-width:1300px;
+
+    margin:auto;
+
+    height:80px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+}
+
+/* Logo */
+
+.logo{
+
+    font-size:34px;
+
+    font-weight:800;
+
+}
+
+.logo span{
+
+    color:var(--primary);
+
+}
+
+/* Navigation */
+
+.nav-links{
+
+    display:flex;
+
+    gap:40px;
+
+}
+
+.nav-links a{
+
+    position:relative;
+
+    color:var(--dark);
+
+    font-weight:500;
+
+    transition:.3s;
+
+}
+
+.nav-links a:hover{
+
+    color:var(--primary);
+
+}
+
+.nav-links a::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:0;
+
+    height:2px;
+
+    left:0;
+
+    bottom:-6px;
+
+    background:var(--primary);
+
+    transition:.3s;
+
+}
+
+.nav-links a:hover::after{
+
+    width:100%;
+
+}
+
+/* Icons */
+
+.nav-icons{
+
+    display:flex;
+
+    gap:25px;
+
+    font-size:20px;
+
+}
+
+.nav-icons i{
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.nav-icons i:hover{
+
+    color:var(--primary);
+
+    transform:translateY(-3px);
+
+}
+
+/* Cart */
+
+.cart-icon{
+
+    position:relative;
+
+}
+
+.cart-count{
+
+    position:absolute;
+
+    top:-10px;
+
+    right:-10px;
+
+    width:20px;
+
+    height:20px;
+
+    border-radius:50%;
+
+    background:var(--secondary);
+
+    color:white;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-size:11px;
+
+}
+
+/* ============================
+      BUTTONS
+============================ */
+
+.primary-btn{
+
+    background:var(--primary);
+
+    color:white;
+
+    padding:16px 36px;
+
+    border-radius:50px;
+
+    font-size:16px;
+
+    transition:.3s;
+
+}
+
+.primary-btn:hover{
+
+    transform:translateY(-5px);
+
+    box-shadow:0 15px 30px rgba(37,99,235,.3);
+
+}
+
+.secondary-btn{
+
+    background:white;
+
+    border:2px solid var(--primary);
+
+    color:var(--primary);
+
+    padding:16px 36px;
+
+    border-radius:50px;
+
+    transition:.3s;
+
+}
+
+.secondary-btn:hover{
+
+    background:var(--primary);
+
+    color:white;
+
+}
