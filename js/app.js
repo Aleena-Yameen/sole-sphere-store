@@ -27,7 +27,10 @@ function loadProducts() {
                     ${product.badge}
                 </div>
 
-                <div class="wishlist">
+                <div
+    class="wishlist"
+    data-id="${product.id}"
+>
                     <i class="fa-regular fa-heart"></i>
                 </div>
 
@@ -76,6 +79,8 @@ function loadProducts() {
     });
 
     attachCartButtons();
+attachWishlistButtons();
+updateAllHearts();
 }
 
 

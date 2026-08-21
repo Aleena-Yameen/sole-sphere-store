@@ -1113,3 +1113,142 @@ background:#2563eb;
     font-size: 14px;
 
 }
+
+/* ==========================
+      WISHLIST ICON
+========================== */
+
+.wishlist-icon {
+
+    position: relative;
+
+    cursor: pointer;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+}
+
+.wishlist-icon i {
+
+    transition: .3s;
+
+}
+
+.wishlist-icon:hover i {
+
+    color: #ef4444;
+
+    transform: translateY(-3px);
+
+}
+
+#wishlistCount {
+
+    position: absolute;
+
+    top: -10px;
+
+    right: -10px;
+
+    width: 18px;
+
+    height: 18px;
+
+    border-radius: 50%;
+
+    background: #ef4444;
+
+    color: white;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    font-size: 10px;
+
+}
+
+
+/* ==========================
+      PRODUCT HEART
+========================== */
+
+.product-card .wishlist {
+
+    position: absolute;
+
+    top: 20px;
+
+    right: 20px;
+
+    width: 40px;
+
+    height: 40px;
+
+    background: #f8f8f8;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    cursor: pointer;
+
+    z-index: 5;
+
+    transition: .3s;
+
+}
+
+.product-card .wishlist:hover {
+
+    background: #fee2e2;
+
+    transform: scale(1.1);
+
+}
+
+.product-card .wishlist i {
+
+    transition: .3s;
+
+}
+
+.product-card .wishlist i.active {
+
+    color: #ef4444;
+
+    animation: heartPop .3s ease;
+
+}
+
+@keyframes heartPop {
+
+    0% {
+
+        transform: scale(.5);
+
+    }
+
+    70% {
+
+        transform: scale(1.3);
+
+    }
+
+    100% {
+
+        transform: scale(1);
+
+    }
+
+}

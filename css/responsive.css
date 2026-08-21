@@ -1,0 +1,23 @@
+/* ==========================
+        CART MOBILE
+========================== */
+
+@media (max-width: 600px) {
+
+    .cart-drawer {
+
+        width: 100%;
+
+        max-width: 100%;
+
+        right: -100%;
+
+    }
+
+    .cart-drawer.active {
+
+        right: 0;
+
+    }
+
+}
