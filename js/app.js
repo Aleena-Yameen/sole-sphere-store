@@ -429,3 +429,94 @@ if (cartOverlay) {
 loadProducts();
 
 updateCartUI();
+
+/* ==========================
+        FOOTER
+========================== */
+
+// Dynamic copyright year
+
+const currentYear =
+    document.getElementById("currentYear");
+
+if (currentYear) {
+
+    currentYear.textContent =
+        new Date().getFullYear();
+
+}
+
+
+/* ==========================
+        BACK TO TOP
+========================== */
+
+const backToTop =
+    document.getElementById("backToTop");
+
+
+window.addEventListener("scroll", () => {
+
+    if (window.scrollY > 500) {
+
+        backToTop.classList.add("show");
+
+    } else {
+
+        backToTop.classList.remove("show");
+
+    }
+
+});
+
+
+if (backToTop) {
+
+    backToTop.addEventListener("click", () => {
+
+        window.scrollTo({
+
+            top: 0,
+
+            behavior: "smooth"
+
+        });
+
+    });
+
+}
+
+
+/* ==========================
+        NEWSLETTER
+========================== */
+
+const newsletterForm =
+    document.getElementById("newsletterForm");
+
+
+if (newsletterForm) {
+
+    newsletterForm.addEventListener(
+        "submit",
+        function(event) {
+
+            event.preventDefault();
+
+            const email =
+                document.getElementById(
+                    "newsletterEmail"
+                ).value.trim();
+
+            if (!email) return;
+
+            alert(
+                `Thanks for subscribing, ${email}!`
+            );
+
+            newsletterForm.reset();
+
+        }
+    );
+
+}

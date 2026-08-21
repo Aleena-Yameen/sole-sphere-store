@@ -21,3 +21,104 @@
     }
 
 }
+
+/* ==========================
+        FOOTER RESPONSIVE
+========================== */
+
+@media (max-width: 900px) {
+
+    .newsletter {
+
+        flex-direction: column;
+
+        align-items: flex-start;
+
+    }
+
+    .newsletter-form {
+
+        width: 100%;
+
+        min-width: unset;
+
+    }
+
+    .footer-main {
+
+        grid-template-columns: 1fr 1fr;
+
+        gap: 50px;
+
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .newsletter {
+
+        padding: 60px 0;
+
+    }
+
+    .newsletter h2 {
+
+        font-size: 32px;
+
+    }
+
+    .newsletter-form {
+
+        flex-direction: column;
+
+        background: transparent;
+
+        padding: 0;
+
+        gap: 10px;
+
+    }
+
+    .newsletter-form input {
+
+        width: 100%;
+
+        background: white;
+
+    }
+
+    .newsletter-form button {
+
+        width: 100%;
+
+    }
+
+    .footer-main {
+
+        grid-template-columns: 1fr;
+
+        gap: 40px;
+
+    }
+
+    .footer-bottom {
+
+        flex-direction: column;
+
+        gap: 20px;
+
+        text-align: center;
+
+    }
+
+    .payment-methods {
+
+        flex-wrap: wrap;
+
+        justify-content: center;
+
+    }
+
+}
