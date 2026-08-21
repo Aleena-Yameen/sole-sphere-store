@@ -1,103 +1,426 @@
-const products = [
+/* ==========================
+   PRODUCT DISPLAY
+========================== */
 
-{
-    id:1,
-    name:"Air Runner X",
-    category:"Running",
-    price:120,
-    image:"images/products/shoe1.avif"
-},
+const productGrid = document.getElementById("productGrid");
 
-{
-    id:2,
-    name:"Urban Street",
-    category:"Casual",
-    price:95,
-    image:"images/products/shoe2.avif"
-},
+let cart = JSON.parse(localStorage.getItem("soleSphereCart")) || [];
 
-{
-    id:3,
-    name:"Velocity Pro",
-    category:"Sports",
-    price:160,
-    image:"images/products/shoe3.avif"
-},
 
-{
-    id:4,
-    name:"Classic Elite",
-    category:"Premium",
-    price:210,
-    image:"images/products/shoe4.avif"
+/* ==========================
+   LOAD PRODUCTS
+========================== */
+
+function loadProducts() {
+
+    if (!productGrid) return;
+
+    productGrid.innerHTML = "";
+
+    products.forEach(product => {
+
+        productGrid.innerHTML += `
+
+            <div class="product-card">
+
+                <div class="badge">
+                    ${product.badge}
+                </div>
+
+                <div class="wishlist">
+                    <i class="fa-regular fa-heart"></i>
+                </div>
+
+                <img
+                    src="${product.image}"
+                    alt="${product.name}"
+                >
+
+                <h3>${product.name}</h3>
+
+                <div class="rating">
+                    ⭐ ${product.rating}
+                </div>
+
+                <div class="price">
+
+                    <span class="new-price">
+                        $${product.price}
+                    </span>
+
+                    <span class="old-price">
+                        $${product.oldPrice}
+                    </span>
+
+                </div>
+
+                <div class="sizes">
+
+                    <span>7</span>
+                    <span>8</span>
+                    <span>9</span>
+                    <span>10</span>
+
+                </div>
+
+                <button
+                    class="add-cart-btn"
+                    data-id="${product.id}"
+                >
+                    Add To Cart
+                </button>
+
+            </div>
+
+        `;
+    });
+
+    attachCartButtons();
 }
 
-];
 
-const container = document.getElementById("product-container");
+/* ==========================
+   ADD TO CART BUTTONS
+========================== */
 
-products.forEach(product=>{
+function attachCartButtons() {
 
-container.innerHTML += `
+    const buttons =
+        document.querySelectorAll(".add-cart-btn");
 
-<div class="product-card">
+    buttons.forEach(button => {
 
-    <div class="product-image">
+        button.addEventListener("click", () => {
 
-        <img src="${product.image}" alt="${product.name}">
+            const productId =
+                Number(button.dataset.id);
 
-    </div>
+            addToCart(productId);
 
-    <div class="product-info">
+        });
 
-        <div class="category">
+    });
 
-            ${product.category}
+}
 
-        </div>
 
-        <h3 class="product-name">
+/* ==========================
+   ADD PRODUCT TO CART
+========================== */
 
-            ${product.name}
+function addToCart(productId) {
 
-        </h3>
+    const product =
+        products.find(item => item.id === productId);
 
-        <div class="rating">
+    if (!product) return;
 
-            ★★★★★
+    const existingItem =
+        cart.find(item => item.id === productId);
 
-        </div>
+    if (existingItem) {
 
-        <div class="bottom-row">
+        existingItem.quantity++;
 
-            <div class="price">
+    } else {
 
-                $${product.price}
+        cart.push({
+
+            id: product.id,
+
+            name: product.name,
+
+            price: product.price,
+
+            image: product.image,
+
+            quantity: 1
+
+        });
+
+    }
+
+    saveCart();
+
+    updateCartUI();
+
+    openCart();
+
+}
+
+
+/* ==========================
+   SAVE CART
+========================== */
+
+function saveCart() {
+
+    localStorage.setItem(
+        "soleSphereCart",
+        JSON.stringify(cart)
+    );
+
+}
+
+
+/* ==========================
+   UPDATE CART COUNT
+========================== */
+
+function updateCartCount() {
+
+    const cartCount =
+        document.getElementById("cartCount");
+
+    if (!cartCount) return;
+
+    const totalQuantity = cart.reduce(
+        (total, item) => total + item.quantity,
+        0
+    );
+
+    cartCount.textContent = totalQuantity;
+
+}
+
+
+/* ==========================
+   RENDER CART
+========================== */
+
+function renderCart() {
+
+    const cartItems =
+        document.getElementById("cartItems");
+
+    const cartTotal =
+        document.getElementById("cartTotal");
+
+    if (!cartItems || !cartTotal) return;
+
+    if (cart.length === 0) {
+
+        cartItems.innerHTML = `
+
+            <div class="empty-cart">
+
+                <i class="fa-solid fa-bag-shopping"></i>
+
+                <h3>Your cart is empty</h3>
+
+                <p>
+                    Looks like you haven't added
+                    anything yet.
+                </p>
 
             </div>
 
-            <div class="actions">
+        `;
 
-                <button>
+        cartTotal.textContent = "$0.00";
 
-                    <i class="fa-regular fa-heart"></i>
+        return;
+    }
 
-                </button>
+    cartItems.innerHTML = "";
 
-                <button>
+    let total = 0;
 
-                    <i class="fa-solid fa-cart-shopping"></i>
+    cart.forEach(item => {
 
+        total += item.price * item.quantity;
+
+        cartItems.innerHTML += `
+
+            <div class="cart-item">
+
+                <img
+                    src="${item.image}"
+                    alt="${item.name}"
+                >
+
+                <div class="cart-item-info">
+
+                    <h3>${item.name}</h3>
+
+                    <strong>
+                        $${item.price}
+                    </strong>
+
+                    <div class="quantity-controls">
+
+                        <button
+                            class="quantity-btn"
+                            onclick="changeQuantity(${item.id}, -1)"
+                        >
+                            −
+                        </button>
+
+                        <span>
+                            ${item.quantity}
+                        </span>
+
+                        <button
+                            class="quantity-btn"
+                            onclick="changeQuantity(${item.id}, 1)"
+                        >
+                            +
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <button
+                    class="remove-item"
+                    onclick="removeFromCart(${item.id})"
+                >
+                    <i class="fa-solid fa-trash"></i>
                 </button>
 
             </div>
 
-        </div>
+        `;
 
-    </div>
+    });
 
-</div>
+    cartTotal.textContent =
+        `$${total.toFixed(2)}`;
 
-`;
+}
 
-});
+
+/* ==========================
+   CHANGE QUANTITY
+========================== */
+
+function changeQuantity(productId, change) {
+
+    const item =
+        cart.find(item => item.id === productId);
+
+    if (!item) return;
+
+    item.quantity += change;
+
+    if (item.quantity <= 0) {
+
+        cart = cart.filter(
+            item => item.id !== productId
+        );
+
+    }
+
+    saveCart();
+
+    updateCartUI();
+
+}
+
+
+/* ==========================
+   REMOVE FROM CART
+========================== */
+
+function removeFromCart(productId) {
+
+    cart = cart.filter(
+        item => item.id !== productId
+    );
+
+    saveCart();
+
+    updateCartUI();
+
+}
+
+
+/* ==========================
+   UPDATE EVERYTHING
+========================== */
+
+function updateCartUI() {
+
+    updateCartCount();
+
+    renderCart();
+
+}
+
+
+/* ==========================
+   CART DRAWER
+========================== */
+
+const cartButton =
+    document.getElementById("cartButton");
+
+const cartDrawer =
+    document.getElementById("cartDrawer");
+
+const cartOverlay =
+    document.getElementById("cartOverlay");
+
+const closeCart =
+    document.getElementById("closeCart");
+
+
+function openCart() {
+
+    cartDrawer.classList.add("active");
+
+    cartOverlay.classList.add("active");
+
+    document.body.classList.add("cart-open");
+
+}
+
+
+function closeCartDrawer() {
+
+    cartDrawer.classList.remove("active");
+
+    cartOverlay.classList.remove("active");
+
+    document.body.classList.remove("cart-open");
+
+}
+
+
+if (cartButton) {
+
+    cartButton.addEventListener(
+        "click",
+        openCart
+    );
+
+}
+
+
+if (closeCart) {
+
+    closeCart.addEventListener(
+        "click",
+        closeCartDrawer
+    );
+
+}
+
+
+if (cartOverlay) {
+
+    cartOverlay.addEventListener(
+        "click",
+        closeCartDrawer
+    );
+
+}
+
+
+/* ==========================
+   INITIALIZE
+========================== */
+
+loadProducts();
+
+updateCartUI();
